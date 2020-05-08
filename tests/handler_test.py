@@ -34,7 +34,7 @@ from avro_manager import convert_to_avro
 def test_convert_to_avro():
     xls_filename = 'repo-sofr_04022018_03242020.xls'
     avro_filename='repo-sofr_04022018_03242020.avro'
-    repo_df = read_dataframe(xls_filename)
+    repo_df = read_dataframe(xls_filename, 3)
     convert_to_avro(repo_df,avro_filename)
 
 
