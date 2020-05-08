@@ -9,4 +9,5 @@ def write_to_excel(response, xls_filename):
     except Exception as e:
         logger.error("ERROR - fail to write XLS file - %s"%xls_filename)
         logger.error(e)
+        raise e
     return xls_filename

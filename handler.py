@@ -16,10 +16,14 @@ def scrape_repo_sofr(event, context):
     result = session.get(url)
     if result.status_code >= 200 and result.status_code < 300:
         xls_filename = 'repo-sofr_%(startdate)s_%(enddate)s.xls'%{"startdate":startdate,"enddate":enddate}
-        avro_filename =  'repo-sofr_%(startdate)s_%(enddate)s.avro'%{"startdate":startdate,"enddate":enddate}
+        avro_filename = 'repo-sofr_%(startdate)s_%(enddate)s.avro'%{"startdate":startdate,"enddate":enddate}
+        avro_schema = "sofr_schema.json"
+        logger.info("INFO - writing excel from url - %s"%url)
         write_to_excel(result, xls_filename)
-        repo_df = read_dataframe(xls_filename)
-        convert_to_avro(repo_df, avro_filename)        
+        logger.info("INFO - writing dataframe from url - %s"%url)
+        repo_df = read_dataframe(xls_filename, 3)
+        logger.info("INFO - writing AVRO from url - %s"%url)
+        convert_to_avro(repo_df, avro_filename, avro_schema)        
     else:
         logger.error("ERROR - failed to fetch url, error code - %s"%result.status_code)
         function_response_code = result.status_code
