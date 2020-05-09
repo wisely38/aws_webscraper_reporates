@@ -19,7 +19,7 @@ import requests
 # logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 # logger = logging.getLogger()
 
-@pytest.mark.skip(reason="temp")
+# @pytest.mark.skip(reason="temp")
 def test_func_fast():
     # event = {
     #     "startdate": "04022017",
@@ -43,37 +43,37 @@ def test_func_fast():
     }    
     class Context:
         def __init__(self):
-            pass
-        def functionName(self):
-            return "tester"
-        def getRemainingTimeInMillis(self):
+            self.function_name = "tester"
+            # pass 
+        def get_remaining_time_in_millis(self):
             return 1500
     context = Context()
     response = scrape_repo_sofr(event, context)
     print(response)
 
+@pytest.mark.skip(reason="temp")
+def test_read_dataframe():
+    xls_filename='repo-sofr_04022018_03242020.xls'
+    logger.info("file:%s"%xls_filename)
+    repo_df = read_dataframe(xls_filename)
+    logger.info(repo_df.columns)
 
-# def test_read_dataframe():
-#     xls_filename='repo-sofr_04022018_03242020.xls'
-#     logger.info("file:%s"%xls_filename)
-#     repo_df = read_dataframe(xls_filename)
-#     logger.info(repo_df.columns)
+@pytest.mark.skip(reason="temp")
+def test_convert_to_avro():
+    avro_schema = "sofr_schema.json"
+    xls_filename = 'repo-sofr_04022018_03242020.xls'
+    avro_filename='repo-sofr_04022018_03242020.avro'
+    repo_df = read_dataframe(xls_filename, 3)
+    convert_to_avro(repo_df, avro_filename, avro_schema)
 
-# def test_convert_to_avro():
-#     avro_schema = "sofr_schema.json"
-#     xls_filename = 'repo-sofr_04022018_03242020.xls'
-#     avro_filename='repo-sofr_04022018_03242020.avro'
-#     repo_df = read_dataframe(xls_filename, 3)
-#     convert_to_avro(repo_df, avro_filename, avro_schema)
-
-
-# def test_handler_cfg_loader():
-#     handler_cfg = handler_cfg_loader("handler_cfg.json")
-#     url = handler_cfg['url']
-#     session = requests.session()
-#     logger.info("INFO - fetching url - %s"%url)
-#     result = session.get(url)
-#     logger.info("INFO - status code - %s"%result.status_code)
+@pytest.mark.skip(reason="temp")
+def test_handler_cfg_loader():
+    handler_cfg = handler_cfg_loader("handler_cfg.json")
+    url = handler_cfg['url']
+    session = requests.session()
+    logger.info("INFO - fetching url - %s"%url)
+    result = session.get(url)
+    logger.info("INFO - status code - %s"%result.status_code)
 
 
     

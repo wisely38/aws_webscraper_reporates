@@ -1,7 +1,7 @@
 {
     "source_config_filename":"source_cfg.json",
-    "config_path":"config",
-    "schema_path":"schema",
+    "data_config_path":"/tmp/config",
+    "schema_path":"/tmp/schema",
     "temp_path":"/tmp/temp",
     "output_path":"/tmp/output",
     "python_path":"/tmp/package",

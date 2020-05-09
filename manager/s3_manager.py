@@ -20,11 +20,9 @@ def download_from_s3(s3_path, download_path):
         logger.error(err)
         raise err
 
-def upload_to_s3(upload_path, filename, year, month):
-    bucket_name = 'eternity02.deployment'
-    bucket = s3.Bucket(bucket_name)    
-    key = 'lambda/data-collector-repo-sofr-app/output/' + str(year) + '/' + str(month) + '/' + filename
+def upload_to_s3(upload_path, bucket_name, key):
     try:
+        bucket = s3.Bucket(bucket_name)
         logger.info("INFO - start uploading file %s to - %s"%(upload_path,key))
         bucket.upload_file(upload_path, key)
         logger.info("INFO - end uploading file %s to - %s"%(upload_path,key))
@@ -32,4 +30,9 @@ def upload_to_s3(upload_path, filename, year, month):
         logger.error("ERROR - fail to upload file %s to - %s"%(upload_path,key))
         logger.error(err)
         raise err    
+
+def upload_to_s3_repo_sofr(upload_path, filename, year, month):
+    bucket_name = 'eternity02.datacollection.output'
+    key = 'repo-sofr/' + str(year) + '/' + str(month) + '/' + filename
+    upload_to_s3(upload_path, bucket_name, key)
 
