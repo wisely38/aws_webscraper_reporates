@@ -1,0 +1,10 @@
+{
+    "url_template": "https://websvcgatewayx2.frbny.org/mktrates_external_httponly/services/v1_0/mktRates/excel/retrieve?multipleRateTypes=true&startdate={{startdate}}&enddate={{enddate}}&rateType=R3",
+    "header_linenumber": 3,
+    "intraday": true,
+    "startdate": "04022018",
+    "enddate": "05092020",
+    "xls_filename_template": "repo-sofr_{{startdate}}_{{enddate}}.xls",
+    "avro_filename_template":"repo-sofr_{{startdate}}_{{enddate}}.avro",
+    "avro_schema":"sofr_schema.json"
+}

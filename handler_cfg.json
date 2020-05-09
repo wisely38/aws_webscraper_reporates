@@ -1,0 +1,7 @@
+{
+    "source_config_filename":"source_cfg.json",
+    "config_path":"config",
+    "schema_path":"schema",
+    "temp_path":"temp",
+    "output_path":"output"
+}
