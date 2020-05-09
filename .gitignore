@@ -17,6 +17,9 @@ var/
 *.egg
 *.pyc
 *.log
+*.avro
+*.xls
+*.csv
 
 # Serverless directories
 .serverless
