@@ -14,7 +14,7 @@ def cleanse_datefield(datefield):
 def convert_to_timestamp(series, date_str):
     return pd.to_datetime(series, format=date_str)
 
-def read_dataframe(xls_filename, header_linenumber):
+def read_dataframe(xls_filename, date_format, header_linenumber):
     locale.setlocale(locale.LC_NUMERIC, '')
     try:
         repo_df = pd.read_excel(xls_filename, header=header_linenumber)
@@ -35,7 +35,7 @@ def read_dataframe(xls_filename, header_linenumber):
     try:
         repo_df['DATE'] = repo_df['DATE'].apply(cleanse_datefield)
         repo_df = repo_df[repo_df['DATE'].str.len()==10]
-        repo_df['DATE'] = convert_to_timestamp(repo_df['DATE'], '%Y-%m-%d')
+        repo_df['DATE'] = convert_to_timestamp(repo_df['DATE'], date_format)
         repo_df['RATE'] = repo_df['RATE'].astype("float64")
         repo_df['1ST'] = repo_df['1ST'].astype("float64")
         repo_df['25TH'] = repo_df['25TH'].astype("float64")
