@@ -6,13 +6,6 @@ from manager.dataframe_manager import read_dataframe
 from manager.excel_manager import write_to_excel
 from manager.avro_manager import convert_to_avro
 from manager.config_manager import ConfigManager
-import datetime
-
-def validate(date_text):
-    try:
-        datetime.datetime.strptime(date_text, '%Y-%m-%d')
-    except ValueError:
-        raise ValueError("Incorrect data format, should be YYYY-MM-DD")
 
 def scrape_repo_sofr(event, context):
     logger.info('INFO - start running function: %s'%context.functionName)
