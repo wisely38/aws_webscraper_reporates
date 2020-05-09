@@ -32,7 +32,7 @@ class ConfigManager:
             raise err
         self.cfgobj['url'] = self.recover_string_template(self.cfgobj, "url_template")
         self.cfgobj['xls_filename'] = self.recover_string_template(self.cfgobj, "xls_filename_template")
-        self.cfgobj['avro_filename'] = self.recover_string_template(self.cfgobj, "avro_filename_template")            
+        self.cfgobj['avro_filename'] = self.recover_string_template(self.cfgobj, "avro_filename_template")
 
     def recover_string_template(self, cfg_obj, field):
         template_str = cfg_obj[field]
@@ -51,6 +51,8 @@ class ConfigManager:
         enddate = cfg_obj['enddate'] if 'enddate' in cfg_obj else eventobj['enddate'] if 'enddate' in eventobj else current_date_str
         cfg_obj['startdate'] = startdate
         cfg_obj['enddate'] = enddate
+        cfg_obj['year'] = start_dateobj.year
+        cfg_obj['month'] = start_dateobj.month
         return cfg_obj
 
     def load_cfg(self, cfg_filename, is_datasource_cfg = False):

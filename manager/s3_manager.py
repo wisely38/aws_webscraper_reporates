@@ -1,11 +1,35 @@
 import boto3
+import urllib
+import os
+from logger import logger
 
-# client = boto3.client('lambda')
-s3_client = boto3.client('s3')
+s3_client = boto3.client('s3',region_name='us-west-2')
+s3 = boto3.resource('s3')
 
-def upload_to_s3(filepath):
-    pass
-    # bucket = ''
-    # upload_path = '/tmp/resized-{}'.format(tmpkey)
-    # s3_client.upload_file(upload_path, '{}-resized'.format(bucket), key)
+def download_from_s3(s3_path, download_path):
+    url_parsed = urllib.parse.urlparse(s3_path)
+    bucket_name = url_parsed[1]
+    bucket = s3.Bucket(bucket_name)
+    key = url_parsed.path[1:]
+    try:
+        logger.info("INFO - start downloading file %s to - %s"%(key,download_path))
+        bucket.download_file(key, download_path)
+        logger.info("INFO - end downloading file %s to - %s"%(key,download_path))
+    except Exception as err:
+        logger.error("ERROR - fail to download file %s to - %s"%(key,download_path))
+        logger.error(err)
+        raise err
+
+def upload_to_s3(upload_path, filename, year, month):
+    bucket_name = 'eternity02.deployment'
+    bucket = s3.Bucket(bucket_name)    
+    key = 'lambda/data-collector-repo-sofr-app/output/' + str(year) + '/' + str(month) + '/' + filename
+    try:
+        logger.info("INFO - start uploading file %s to - %s"%(upload_path,key))
+        bucket.upload_file(upload_path, key)
+        logger.info("INFO - end uploading file %s to - %s"%(upload_path,key))
+    except Exception as err:
+        logger.error("ERROR - fail to upload file %s to - %s"%(upload_path,key))
+        logger.error(err)
+        raise err    
 

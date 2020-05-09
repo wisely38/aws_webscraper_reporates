@@ -19,7 +19,7 @@ import requests
 # logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 # logger = logging.getLogger()
 
-
+@pytest.mark.skip(reason="temp")
 def test_func_fast():
     # event = {
     #     "startdate": "04022017",

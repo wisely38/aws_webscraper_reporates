@@ -2,8 +2,8 @@
     "source_config_filename":"source_cfg.json",
     "config_path":"config",
     "schema_path":"schema",
-    "temp_path":"temp",
-    "output_path":"output",
-    "python_path":"tmp",
+    "temp_path":"/tmp/temp",
+    "output_path":"/tmp/output",
+    "python_path":"/tmp/package",
     "s3_output_path":"s3://eternity02.deployment/lambda/data-collector-repo-sofr-app/output/"
 }
