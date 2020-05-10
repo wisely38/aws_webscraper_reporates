@@ -31,8 +31,7 @@ def upload_to_s3(upload_path, bucket_name, key):
         logger.error(err)
         raise err    
 
-def upload_to_s3_repo_sofr(upload_path, filename, year, month):
-    bucket_name = 'eternity02.datacollection.output'
-    key = 'repo-sofr/' + str(year) + '/' + str(month) + '/' + filename
+def upload_to_s3_repo_sofr(upload_path, filename, bucket_name, key_prefix, year, month):
+    key = os.path.join(key_prefix, str(year), str(month), filename)
     upload_to_s3(upload_path, bucket_name, key)
 

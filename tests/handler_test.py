@@ -9,15 +9,9 @@ from handler import scrape_repo_sofr
 # sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from ..manager.dataframe_manager import read_dataframe
 from ..manager.avro_manager import convert_to_avro
-# from ..manager.handler_manager import cfg_loader, recover_string_template
+from ..manager.config_manager import ConfigManager
 import requests
 
-# import read_dataframe
-# import convert_to_avro
-
-# logging.basicConfig(filename="handler_test.log",level=logging.INFO)
-# logging.basicConfig(stream=sys.stdout, level=logging.INFO)
-# logger = logging.getLogger()
 
 # @pytest.mark.skip(reason="temp")
 def test_func_fast():
@@ -68,8 +62,21 @@ def test_convert_to_avro():
 
 @pytest.mark.skip(reason="temp")
 def test_handler_cfg_loader():
-    handler_cfg = handler_cfg_loader("handler_cfg.json")
-    url = handler_cfg['url']
+    event = {
+        "version": "0",
+        "id": "53dc4d37-cffa-4f76-80c9-8b7d4a4d2eaa",
+        "detail-type": "Scheduled Event",
+        "source": "aws.events",
+        "account": "123456789012",
+        "time": "2015-10-08T16:53:06Z",
+        "region": "us-east-1",
+        "resources": [
+            "arn:aws:events:us-east-1:123456789012:rule/my-scheduled-rule"
+        ],
+        "detail": {}
+    }        
+    cfg = ConfigManager(event, False).get_cfgobj()
+    url = cfg['url']
     session = requests.session()
     logger.info("INFO - fetching url - %s"%url)
     result = session.get(url)
