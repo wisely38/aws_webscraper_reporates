@@ -1,0 +1,10 @@
+{
+    "source_config_filename":"data_cfg.json",
+    "data_config_path":"config",
+    "schema_path":"schema",
+    "temp_path":"temp",
+    "output_path":"output",
+    "python_path":"package",
+    "s3_output_bucket_avro":"eternity02.datacollection01.output.avro",
+    "s3_output_key_prefix":"reposofr"
+}

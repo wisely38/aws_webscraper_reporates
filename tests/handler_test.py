@@ -37,7 +37,7 @@ def test_func_fast():
     }    
     class Context:
         def __init__(self):
-            self.function_name = "tester"
+            self.function_name = "s3"
             # pass 
         def get_remaining_time_in_millis(self):
             return 1500

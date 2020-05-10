@@ -11,8 +11,8 @@ class ConfigManager:
     def __init__(self, eventobj, is_runningon_s3=False):
         self.cfgobj = defaultdict()
         if is_runningon_s3:
-            s3_main_config_path = "s3://eternity02.deployment/lambda/data-collector-repo-sofr-app/config/s3_handler_cfg.json"
-            tmp_main_config_path = "/tmp/handler_cfg.json"
+            s3_main_config_path = "s3://eternity02.deployment/lambda/data-collector-repo-sofr-app/config/s3_main_cfg.json"
+            tmp_main_config_path = "/tmp/main_cfg.json"
             if os.path.exists(tmp_main_config_path):
                 os.remove(tmp_main_config_path)
             logger.info('INFO - start copying s3 config - %s'%s3_main_config_path)
@@ -20,7 +20,7 @@ class ConfigManager:
             general_cfg_path = tmp_main_config_path
             logger.info('INFO - end copying s3 config - %s'%s3_main_config_path)
         else:
-            local_main_config_path = "handler_cfg.json"
+            local_main_config_path = "main_cfg.json"
             logger.info('INFO - start copying local config - %s'%local_main_config_path)
             general_cfg_path = local_main_config_path
             logger.info('INFO - end copying local config - %s'%local_main_config_path)            
@@ -65,8 +65,8 @@ class ConfigManager:
 
 
     def copy_configs(self, cfg):    
-        s3_data_config_path = "s3://eternity02.deployment/lambda/data-collector-repo-sofr-app/config/s3_source_cfg.json"
-        tmp_data_config_path = os.path.join(cfg["data_config_path"], "source_cfg.json")
+        s3_data_config_path = "s3://eternity02.deployment/lambda/data-collector-repo-sofr-app/config/s3_data_cfg.json"
+        tmp_data_config_path = os.path.join(cfg["data_config_path"], "data_cfg.json")
         if os.path.exists(tmp_data_config_path):
             os.remove(tmp_data_config_path)
         logger.info('INFO - start copying data config - %s to %s '%(s3_data_config_path,tmp_data_config_path))

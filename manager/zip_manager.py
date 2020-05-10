@@ -15,6 +15,3 @@ def load_dependencies(zip_filepath):
         logger.error("ERROR - fail to unzip file - %s to folder %s"%(zip_filepath,zip_folder))
         logger.error(err)
         raise err            
-
-# with zipfile.ZipFile('/tmp/dependencies.zip', 'r') as zip_ref:
-#     zip_ref.extractall('/tmp/')        

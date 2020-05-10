@@ -1,0 +1,10 @@
+{
+    "temp_folder": "/tmp",
+    "cfg_basepath": "./",
+    "source_maincfg_contextpath": "config/s3_main_cfg.json",
+    "source_datacfg_contextpath": "config/s3_data_cfg.json", 
+    "source_schema_contextpath": "schema/s3_sofr_schema.json",
+    "dest_maincfg_filename": "main_cfg.json",
+    "dest_datacfg_filename": "data_cfg.json",
+    "dest_schema_filename": "sofr_schema.json"
+}
