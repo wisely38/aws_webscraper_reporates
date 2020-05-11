@@ -6,6 +6,7 @@ from collections import defaultdict
 import os
 from manager.event_manager import parse_event_date
 from manager.s3_manager import download_from_s3
+from manager.template_helper import recover_string_template
 
 class BaseConfigManager:
     def __init__(self, eventobj, handler_cfg, is_runningon_s3=False):
@@ -82,9 +83,9 @@ class BaseConfigManager:
             raise err   
 
     def do_cfg_postprocessing(self, cfg):
-        cfg['url'] = self.recover_string_template(cfg, "url_template")
-        cfg['xls_filename'] = self.recover_string_template(cfg, "xls_filename_template")
-        cfg['avro_filename'] = self.recover_string_template(cfg, "avro_filename_template")
+        cfg['url'] = recover_string_template(cfg, "url_template")
+        cfg['xls_filename'] = recover_string_template(cfg, "xls_filename_template")
+        cfg['avro_filename'] = recover_string_template(cfg, "avro_filename_template")
 
     def do_copy_configs(self, cfg, temp_folder, source_datacfg_path, source_schema_path, dest_datacfg_filename, dest_schema_filename):    
         tmp_data_config_path = os.path.join(temp_folder, cfg["data_config_path"], dest_datacfg_filename)
@@ -115,15 +116,6 @@ class BaseConfigManager:
         logger.info('INFO - creating folder - %s"'%os.path.join(temp_folder, cfg["schema_path"]))            
         if not os.path.isdir(os.path.join(temp_folder, cfg["schema_path"])):
             os.mkdir(os.path.join(temp_folder, cfg["schema_path"]))
-
-    def recover_string_template(self, cfg_obj, field):
-        template_str = cfg_obj[field]
-        placeholders = re.findall(r"\{\{([^\}]+)\}\}", template_str)
-        rendering_params = defaultdict()
-        for placeholder in placeholders:
-            rendering_params[placeholder]=cfg_obj[placeholder]
-        t = Template(template_str)
-        return t.render(rendering_params)    
 
     def load_eventobj(self, eventobj, cfg_obj):
         current_dateobj, start_dateobj = parse_event_date(eventobj)

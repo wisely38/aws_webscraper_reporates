@@ -34,7 +34,9 @@ def read_dataframe(xls_filename, date_format, header_linenumber):
     logger.info("INFO - start cleansing dataframe fields - %s"%xls_filename)
     try:
         repo_df['DATE'] = repo_df['DATE'].apply(cleanse_datefield)
-        repo_df = repo_df[repo_df['DATE'].str.len()==10]
+        repo_df = repo_df[repo_df['DATE'].str.len() == 10]
+        repo_df['PERIOD_START'] = min(repo_df['DATE'])
+        repo_df['PERIOD_END'] = max(repo_df['DATE'])
         repo_df['DATE'] = convert_to_timestamp(repo_df['DATE'], date_format)
         repo_df['RATE'] = repo_df['RATE'].astype("float64")
         repo_df['1ST'] = repo_df['1ST'].astype("float64")

@@ -11,6 +11,8 @@
                 "logicalType": "timestamp-millis"
             }
         },
+        {"name": "PERIOD_END", "type": "string"},
+        {"name": "PERIOD_START", "type": "string"},        
         {"name": "BENCHMARK NAME", "type": "string"},
         {"name": "RATE", "type": "float"},
         {"name": "1ST", "type": "float"},

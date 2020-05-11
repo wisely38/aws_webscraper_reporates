@@ -22,6 +22,7 @@ from manager.excel_manager import write_to_excel
 from manager.avro_manager import convert_to_avro
 # from manager.config_manager import ConfigManager
 from manager.base_config_manager import BaseConfigManager
+from manager.template_helper import recover_string_template
 from manager.crawl_manager import Crawler
 
 # temp_folder = "/tmp"
@@ -54,6 +55,9 @@ def do_fetching_data(url):
 
 def do_generate_output(df, temp_folder, cfg, url):
     logger.info("INFO - writing AVRO from url - %s"%url)
+    cfg['startdate'] = df['PERIOD_START'].values[0].replace("-","")
+    cfg['enddate'] = df['PERIOD_END'].values[0].replace("-","")
+    cfg['avro_filename'] = recover_string_template(cfg, "avro_filename_template")
     avro_filepath =os.path.join(temp_folder, cfg["output_path"],  cfg['avro_filename'])
     avro_schema = os.path.join(temp_folder, cfg["schema_path"],cfg['avro_schema'])
     convert_to_avro(df, avro_filepath, avro_schema)
@@ -91,7 +95,7 @@ def scrape_repo_sofr(event, context):
     cfg = BaseConfigManager(event, handler_cfg, is_running_on_s3).get_cfgobj()
 
     url = cfg['url']
-    logger.info("INFO - fetching data between (%s,%s)"%(cfg['startdate'], cfg['enddate']))
+    logger.info("INFO - trying to fetch data between (%s,%s)"%(cfg['startdate'], cfg['enddate']))
     fetch_result, is_result_valid, function_response_code = do_fetching_data(url)
 
     if is_result_valid:        
